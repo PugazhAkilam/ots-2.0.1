@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  react-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: react-frontend
+    ports:
+      - "8098:8098"  # Expose container's port 80 to host's port 3000
+    restart: unless-stopped
