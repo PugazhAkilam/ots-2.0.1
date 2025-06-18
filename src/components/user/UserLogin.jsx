@@ -24,6 +24,8 @@ import EmailIcon from '@mui/icons-material/Email';
 import API_URL from '../../config';
 import Swal from 'sweetalert2';
 import {  Dialog, DialogContent, DialogTitle } from '@mui/material';
+import useCompanySettings from '../../hooks/useCompanySettings';
+
 function UserLogin() {
     
   const [open, setOpen] = useState(false);
@@ -51,7 +53,7 @@ function UserLogin() {
     const [location, setLocation] = useState({ latitude: '', longitude: '' });
     const[address,setAddress]=useState('')
     const dispatch = useDispatch();
- 
+    const { companyData} = useCompanySettings();
     // Fetch country, state, city data
     const countries = Country.getAllCountries();
     const states = State.getStatesOfCountry(country);
@@ -140,6 +142,9 @@ const handleLogin = async () => {
                 case 2:
                     redirectPath = '/admin';
                     break;
+                case 3:
+                    redirectPath = '/superadmin';
+                    break;    
                 case 4:
                     redirectPath = '/anchor';
                     break;
@@ -335,7 +340,7 @@ const validatePhoneNumber = (phone) => {
     xs={12}
     md={6}
     sx={{
-      backgroundImage: `url(https://3ddcb128.rocketcdn.me/wp-content/uploads/2024/05/Use-for-location-page-1.jpg)`,
+      backgroundImage: `url(${API_URL}/uploads/company/frontpage/${companyData.frontPageImage})`, 
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover', 
       display: { xs: 'none', md: 'block' },    
@@ -386,14 +391,14 @@ const validatePhoneNumber = (phone) => {
             }}
             onClick={() => navigate("/")} // Navigate to home on click
         >
-          Laundry Care
+         {companyData.name}
         </Typography> <br /><br />
             
        
                     <Typography variant="h3" gutterBottom sx={{color:"black",fontSize:'2rem'}}>
                         {isSignup ? 'Sign Up' : isOtpSent ? 'Enter OTP' : 'Login'}
                     </Typography>
-                    <Typography sx={{color:"rgba(38, 38, 38, 0.57)"}}><i><b>Welcome to Laundry Care</b></i></Typography>
+                    <Typography ><i><b>Welcome to {companyData.name}</b></i></Typography>
                     {/* Signup or Login Form */}
                     {isSignup ? (
                         <>

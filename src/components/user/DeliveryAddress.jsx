@@ -20,6 +20,7 @@ import QRCode from 'react-qr-code';
 import ClipboardJS from 'clipboard';
 import { CopyAll as CopyIcon } from '@mui/icons-material'; // Copy Icon for the button
 import UserNavbar from './components/UserNavbar';
+import { useProfile } from '../../hooks/useProfile';
 const DeliveryAddress = () => {
   const [addresses, setAddresses] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState(null);
@@ -29,7 +30,7 @@ const DeliveryAddress = () => {
   const userId = useSelector(state => state.user.userID);
  const { cartItems, dispatch } = useCart();
 
-
+  const {user}=useProfile();
  const totalPrice = Number(localStorage.getItem('totalPrice'));
 
     const totalquantity = localStorage.getItem('totalQuantity');
@@ -104,7 +105,8 @@ const handleDelete=async()=>{
           userId,
           orderStatus_Id:1,
           totalquantity,
-          payment: paymentMethod
+          payment: paymentMethod,
+          userPhoneNumber: user.mobile_Number, 
         });
        
     //     const phoneNumbers = [

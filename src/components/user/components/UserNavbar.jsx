@@ -21,7 +21,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { ThemeProvider, createTheme, useTheme } from '@mui/material/styles';
 import logo from '../../../assets/img/Kirush4.png';
 import { useCart } from '../../../context/CartContext';
-
+import useCompanySettings from '../../../hooks/useCompanySettings';
+import API_URL from '../../../config';
 function UserNavbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { cartItems } = useCart();
@@ -29,7 +30,7 @@ function UserNavbar() {
   const navigate = useNavigate();
   const theme = useTheme(); // Use the theme from ThemeProvider context
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
+  const { companyData } = useCompanySettings();
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -45,7 +46,7 @@ function UserNavbar() {
         <AppBar position="static" sx={{ backgroundColor: 'rgba(17, 125, 247, 0.8)' }}>
           <Toolbar>
             <Button color="inherit" component={Link} to="/user" sx={{ marginRight: 2 }}>
-              <img src={logo} alt="Logo" style={{ height: 60, marginRight: 20,borderRadius:"50%" }} />
+              <img src={`${API_URL}/uploads/company/logo/${companyData.logo}`} alt="Logo" style={{ height: 60, marginRight: 20,borderRadius:"50%" }} />
              
                 <Typography
                   sx={{
@@ -56,7 +57,7 @@ function UserNavbar() {
                     fontSize:{xs:'14px',sm:'14px',md:'16px'}
                   }}
                 >
-                Kirush Laundry
+               {companyData.name}
                 </Typography>
               
             </Button>

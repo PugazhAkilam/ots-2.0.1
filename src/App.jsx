@@ -44,6 +44,13 @@ import AnchorUserSalaryCase from './components/anchor/UserCase';
 import AnchorProfilePage from './components/anchor/AnchorProfilePage';
 import ServicesPage from './components/admin/OrderPage';
 import OrderList from './components/admin/OrderList2';
+import AdminManagement from './components/superadmin/AdminManagement';
+import ReportsAnalytics from './components/superadmin/Report';
+import CustomerOverview from './components/superadmin/Customer';
+import CommunicationSupport from './components/superadmin/Communication';
+import SettingsConfiguration from './components/superadmin/Setting';
+import SuperAdminPage from './components/superadmin/SuperAdminPage';
+import Revenue from './components/superadmin/Revenue';
 
 function App() {
   const InitialRedirect = () => {
@@ -92,16 +99,16 @@ function App() {
           {/* Super Admin Routes */}
           <Route path="/superadmin" element={<AdminLayout />}>
             <Route index element={  <WelcomeDashboard />} />
-            <Route path="flight" element={<>hi</>} />
-            <Route path="hotel" element={<>hi</>} />
-            <Route path="travel" element={<>hi</>} />
-            <Route path="visa" element={<>hi</>} />
-            <Route path="profile" element={<>hi</>
-              } />
-            <Route path="table" 
-            element={
-              <>hi</>
-                } />
+            <Route path="adminmanagement" element={<AdminManagement />} />
+            <Route path="service" element={<AdminServices />}/>
+            <Route path="product" element={<AdminProduct />}/>
+            <Route path="revenue"  element={<Revenue /> } />
+            <Route path="superadminpage" element={<SuperAdminPage />} />
+            <Route path="deliveryman" element={<>hi</>} />
+            <Route path="report"  element={<ReportsAnalytics /> } />
+            <Route path="customer"  element={<CustomerOverview /> } />
+            <Route path="communication"  element={<CommunicationSupport /> } />
+            <Route path="setting"  element={<SettingsConfiguration /> } />
           </Route>
 
           {/* Anchor Routes */}
@@ -127,15 +134,13 @@ function App() {
                  <Route path="/history" element={<OrderSummaryPage />} />
                 <Route path="/wishlist" element={<Wishlist />} />
       
-           {/* <Route path="/superadmin" element={<SuperAdminPage />} /> */}
+       
                  <Route path="/notifications" element={<NotificationPage />} />
                  <Route path="/account" element={<UserProfile />} />
                  <Route path="/product-details" element={<ProductDetailsPage />} />
                   <Route path="/cart-category" element={<UserCart />} />
-        {/* <Route path="/orderlist" element={<OrderList />} /> */}
-          
-        {/* <Route path="/useraddress" element={<UserAddress />} /> */}
-        {/* < Route path="/locations" element={<LocationButton />} /> */}
+     
+
       
     
           <Route path="*" element={<NotFound />} />

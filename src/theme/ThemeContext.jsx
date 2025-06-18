@@ -31,7 +31,7 @@ export const ThemeContextProvider = ({ children }) => {
       <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
         <CssBaseline  />
         <ToastContainer
-          position="top-right"
+          position="bottom-center"
           autoClose={3000}
           theme={isDarkMode ? 'dark' : 'light'}
         />

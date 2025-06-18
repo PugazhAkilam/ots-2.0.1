@@ -13,9 +13,9 @@ import { store } from './store';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
      <ThemeContextProvider>
-    <Provider store={store}>
+        <Provider store={store}>
 
-   <CartProvider>
+      <CartProvider>
     <WishlistProvider>
 <ServiceProvider>
 <App />

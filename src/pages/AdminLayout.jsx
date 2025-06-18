@@ -26,7 +26,9 @@ import { ClockIcon } from '@mui/x-date-pickers';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaPersonFalling, FaProductHunt } from 'react-icons/fa6';
 import { logout } from '../features/userSlice';
-const apiUrl=import.meta.env.VITE_API_URL;
+import API_URL from '../config';
+import useCompanySettings from  "../hooks/useCompanySettings"
+import { useMenuAccess } from '../hooks/useMenuAccess';
 
 const AdminLayout = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -37,30 +39,82 @@ const AdminLayout = () => {
   const location = useLocation();
  const dispatch=useDispatch();
   const userType = useSelector(state => state.user.user_type);
-  //alert(userType);
- // const { user, loading } = useAuth(); // Get loading state from useAuth
+  const { companyData} = useCompanySettings();
+  
+  const {menuData}=useMenuAccess();
 
+   console.log("menuData",menuData);
+   
+   useEffect(() => {
+    if (menuData && menuData.length > 0) {
+      console.log("Menu Data loaded:", menuData);
+    }
+  }, [menuData]);
+  
   const getMenuItems = () => {
     if (userType == 1) {
       return [
         { text: 'Dashboard', icon: <FaTachometerAlt />, path: '/superadmin' },
-        { text: 'Flight', icon: <FlightIcon />, path: '/superadmin/flight' },
-        { text: 'Hotel', icon: <HotelIcon />, path: '/superadmin/hotel' },
-        { text: 'Travel', icon: <LuggageIcon />, path: '/superadmin/travel' },
-        { text: 'Visa', icon: <VisaIcon />, path: '/superadmin/visa' },
-        { text: 'Table', icon: <TableChartIcon />, path: '/admin/table' },
+        { text: 'Admin Management', icon: <FlightIcon />, path: '/superadmin/adminmanagement' },
+        { text: 'Service Management', icon: <HotelIcon />, path: '/superadmin/service' },
+        { text: 'Product Management', icon: <HotelIcon />, path: '/superadmin/product' },
+        { text: 'Revenue', icon: <VisaIcon />, path: '/superadmin/revenue' },
+        { text: 'Order Monitoring', icon: <LuggageIcon />, path: '/admin/orderpage' },
+         { text: 'Deliveryman Oversight', icon: <VisaIcon />, path: '/admin/anchor' },
+        { text: 'Reports & Analytics', icon: <TableChartIcon />, path: '/superadmin/report' },
+        { text: 'Customer Overview', icon: <VisaIcon />, path: '/superadmin/customer' },
+        { text: 'Communication & Support', icon: <VisaIcon />, path: '/superadmin/communication' },
+        { text: 'Settings & Configuration', icon: <VisaIcon />, path: '/superadmin/setting' },
       ];
-    } else if (userType == 2) {
+    } 
+    else if (userType == 3) {
       return [
-        { text: 'Dashboard', icon: <FaTachometerAlt />, path: '/admin' },
-        { text: 'LaundryReception', icon: <FaReceipt />, path: '/admin/laundryReception' },
-        { text: 'Orders', icon: <FaShoppingCart />, path: '/admin/orderpage' },
-        { text: 'Customers', icon: <FaUsers />, path: '/admin/customers' },
-        { text: 'Anchor', icon: <FaUserSecret />, path: '/admin/anchor' },
-        { text: 'Service', icon: <FaServicestack />, path: '/admin/service' },
-        { text: 'Product', icon: <FaList />, path: '/admin/product' },
-        { text: 'Profile', icon:<FaUser /> , path: '/admin/profilepage' }
-      ];
+        { text: 'Dashboard', icon: <FaTachometerAlt />, path: '/superadmin' },
+        { text: 'Admin Management', icon: <FlightIcon />, path: '/superadmin/adminmanagement' },
+        { text: 'Service Management', icon: <HotelIcon />, path: '/superadmin/service' },
+        { text: 'Product Management', icon: <HotelIcon />, path: '/superadmin/product' },
+        { text: 'Order Monitoring', icon: <LuggageIcon />, path: '/admin/orderpage' },
+        { text: 'Reports & Analytics', icon: <TableChartIcon />, path: '/superadmin/report' },
+        { text: 'Customer Overview', icon: <VisaIcon />, path: '/superadmin/customer' },
+        { text: 'Communication & Support', icon: <VisaIcon />, path: '/superadmin/communication' },
+        { text: 'Settings & Configuration', icon: <VisaIcon />, path: '/superadmin/setting' },
+      ] 
+    }
+    else if (userType == 2) {
+      const allowedMenuItems = [];
+      
+      if (menuData?.some(item => item.title === "Dashboard" && item.admin === true)) {
+        allowedMenuItems.push({ text: 'Dashboard', icon: <FaTachometerAlt />, path: '/admin' });
+      }
+      if (menuData?.some(item => item.title === "Laundry Reception" && item.admin === true)) {
+        allowedMenuItems.push({ text: 'LaundryReception', icon: <FaReceipt />, path: '/admin/laundryReception' });
+      }
+      if (menuData?.some(item => item.title === "Orders" && item.admin === true)) {
+        allowedMenuItems.push({ text: 'Orders', icon: <FaShoppingCart />, path: '/admin/orderpage' });
+      }
+      if (menuData?.some(item => item.title === "One Way" && item.admin === true)) {
+        allowedMenuItems.push({ text: 'One-Way-Orders', icon: <FaShoppingCart />, path: '/admin/one-way' });
+      }
+      if (menuData?.some(item => item.title === "Two Way" && item.admin === true)) {
+        allowedMenuItems.push({ text: 'Two-Way-Orders', icon: <FaShoppingCart />, path: '/admin/two-way' });
+      }
+      if (menuData?.some(item => item.title === "Customer" && item.admin === true)) {
+        allowedMenuItems.push({ text: 'Customers', icon: <FaUsers />, path: '/admin/customers' });
+      }
+      if (menuData?.some(item => item.title === "Anchor" && item.admin === true)) {
+        allowedMenuItems.push({ text: 'Anchor', icon: <FaUserSecret />, path: '/admin/anchor' });
+      }
+      if (menuData?.some(item => item.title === "Services" && item.admin === true)) {
+        allowedMenuItems.push({ text: 'Service', icon: <FaServicestack />, path: '/admin/service' });
+      }
+      if (menuData?.some(item => item.title === "Products" && item.admin === true)) {
+        allowedMenuItems.push({ text: 'Product', icon: <FaList />, path: '/admin/product' });
+      }
+      if (menuData?.some(item => item.title === "Profile Page" && item.admin === true)) {
+        allowedMenuItems.push({ text: 'Profile', icon: <FaUser />, path: '/admin/profilepage' });
+      }
+      
+      return allowedMenuItems;
     } else if (userType == 4) {
       return [
         { text: 'Dashboard', icon: <FaTachometerAlt />, path: '/anchor' },
@@ -122,9 +176,9 @@ const AdminLayout = () => {
   const drawer = (
     <Box>
       <Box sx={{ p: 2, display: 'flex', alignItems: 'center', gap: 1,bgcolor:isDarkMode ?"rgb(39, 39, 39)":"GrayText" }}>
-        <img src={logo} alt="ZEAL Logo" style={{ width: 34, height: 33 }} />
+        <img src={`${API_URL}/uploads/company/logo/${companyData.logo}`} alt="company  Logo" style={{ width: 34, height: 33 }} />
         <Typography variant="h6" sx={{ fontWeight: 'bold' ,color:"white"}}>
-          ZEAL Travels
+       {companyData.name}
         </Typography>
       </Box>
     
@@ -231,7 +285,7 @@ const AdminLayout = () => {
               <NotificationsIcon />
             </IconButton>
             <IconButton color="inherit">
-              <Avatar sx={{ width: 32, height: 32 }} onClick={()=>navigate('/admin/profile')}>A</Avatar>
+              <Avatar sx={{ width: 32, height: 32 }} onClick={()=>navigate('/admin/profilepage')}>A</Avatar>
             </IconButton>
           </Box>
         </Toolbar>
