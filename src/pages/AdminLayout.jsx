@@ -65,6 +65,7 @@ const AdminLayout = () => {
         { text: 'Customer Overview', icon: <VisaIcon />, path: '/superadmin/customer' },
         { text: 'Communication & Support', icon: <VisaIcon />, path: '/superadmin/communication' },
         { text: 'Settings & Configuration', icon: <VisaIcon />, path: '/superadmin/setting' },
+        { text: 'Chat-Box', icon: <VisaIcon />, path: '/superadmin/chatbox' }
       ];
     } 
     else if (userType == 3) {
@@ -74,10 +75,12 @@ const AdminLayout = () => {
         { text: 'Service Management', icon: <HotelIcon />, path: '/superadmin/service' },
         { text: 'Product Management', icon: <HotelIcon />, path: '/superadmin/product' },
         { text: 'Order Monitoring', icon: <LuggageIcon />, path: '/admin/orderpage' },
+        { text: 'Admin Reception', icon: <FlightIcon />, path: '/superadmin/laundryReception' },
         { text: 'Reports & Analytics', icon: <TableChartIcon />, path: '/superadmin/report' },
         { text: 'Customer Overview', icon: <VisaIcon />, path: '/superadmin/customer' },
         { text: 'Communication & Support', icon: <VisaIcon />, path: '/superadmin/communication' },
         { text: 'Settings & Configuration', icon: <VisaIcon />, path: '/superadmin/setting' },
+        { text: 'Chat-Box', icon: <VisaIcon />, path: '/superadmin/chatbox' }
       ] 
     }
     else if (userType == 2) {
@@ -113,6 +116,9 @@ const AdminLayout = () => {
       if (menuData?.some(item => item.title === "Profile Page" && item.admin === true)) {
         allowedMenuItems.push({ text: 'Profile', icon: <FaUser />, path: '/admin/profilepage' });
       }
+   
+      allowedMenuItems.push({ text: 'chatbox', icon: <FaUser />, path: '/admin/chatbox' });
+      
       
       return allowedMenuItems;
     } else if (userType == 4) {
@@ -121,7 +127,7 @@ const AdminLayout = () => {
         { text: 'Takeorder', icon: <FaReceipt />, path: '/anchor/anchorTakeorder' },
         { text: 'Myorder', icon: <FaServicestack />, path: '/anchor/pendingorder' },
          { text: 'profilepage', icon: <FaUser />, path: '/anchor/profilepage' },
-      
+         { text: 'Chat-Box', icon: <VisaIcon />, path: '/anchor/chatbox' }
       ];
     }
     return []; // Return empty array if no user type matches

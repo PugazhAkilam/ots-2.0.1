@@ -33,7 +33,8 @@ import AdminProfilePage from './components/admin/AdminProfilePage';
 import AdminProduct from './components/admin/Product';
 import  AdminCategory  from './components/admin/Category';
 import LaundryReception from "./components/admin/LaundryReception"
-
+import ChatBox from './components/superadmin/ChatBox'
+import DeliverymanChat from './components/superadmin/DeliverymanChat';
 //anchor
 import AnchorTakeOrderAnchor from './components/anchor/TakeorderAnchor';
 //import AnchorPendingOrder from './components/anchor/PendingOrder';
@@ -94,6 +95,7 @@ function App() {
             <Route path="product" element={<AdminProduct />}/>
             <Route path="category" element={<AdminCategory />}/>
             <Route path="orderpage" element={<ServicesPage />}/>
+            <Route path="chatbox" element={<DeliverymanChat />} />
           </Route>
 
           {/* Super Admin Routes */}
@@ -109,6 +111,9 @@ function App() {
             <Route path="customer"  element={<CustomerOverview /> } />
             <Route path="communication"  element={<CommunicationSupport /> } />
             <Route path="setting"  element={<SettingsConfiguration /> } />
+            <Route path="laundryReception" element={<LaundryReception />}/>
+            <Route path="chatbox2" element={<ChatBox />}/>
+            <Route path="chatbox" element={<DeliverymanChat />} /> {/* Update this line */}
           </Route>
 
           {/* Anchor Routes */}
@@ -116,7 +121,7 @@ function App() {
                <Route index element={  <AnchorDashboard />} />
                <Route path="anchorTakeorder" element={<AnchorTakeOrderAnchor />} />
                <Route path="pendingorder" element={<AnchorPickUpOrder />} />
-            
+               <Route path="chatbox" element={<DeliverymanChat />} />
                <Route path="profilepage" element={<AnchorProfilePage/> } />
           </Route>
 

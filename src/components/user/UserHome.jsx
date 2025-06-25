@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Grid, TextField, InputAdornment, Box, Typography, useMediaQuery } from "@mui/material";
+import { Grid, TextField, InputAdornment, Box, Typography, useMediaQuery, Fab, Dialog, DialogTitle, DialogContent, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import CloseIcon from "@mui/icons-material/Close";
+import HelpIcon from "@mui/icons-material/Help";
+import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import ServiceCard from "./components/ServiceCard";
 import UserNavbar from "./components/UserNavbar";
+import SupportChat from "./SupportChat"; // Import the new component
 import axios from "axios";
 import { useService } from "../../context/ServicesContext";
 import API_URL from "../../config";
@@ -51,6 +55,8 @@ function UserHome() {
   const [servicesName, setServicesName] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [visibleCount, setVisibleCount] = useState(16);
+  const [openChat, setOpenChat] = useState(false);
+  const [message, setMessage] = useState("");
 
   const isSmallScreen = useMediaQuery("(max-width:600px)");
   const isMediumScreen = useMediaQuery("(max-width:960px) and (min-width:601px)");
@@ -134,6 +140,24 @@ useEffect(() => {
     </Box>
   );
 
+  const handleChatOpen = () => {
+    setOpenChat(true);
+  };
+
+  const handleChatClose = () => {
+    setOpenChat(false);
+  };
+
+  const handleMessageChange = (e) => {
+    setMessage(e.target.value);
+  };
+
+  const handleSendMessage = () => {
+    // Here you would implement the logic to send the message
+    // For now, we'll just clear the input
+    setMessage("");
+  };
+
   return (
     <>
       <UserNavbar />
@@ -212,6 +236,9 @@ useEffect(() => {
         </Grid>
        
       </div>
+
+      {/* Add the Support Chat component */}
+      <SupportChat />
     </>
   );
 }

@@ -105,7 +105,7 @@ const handleDelete = async (id) => {
   useEffect(() => {
     const fetchServices = async () => {
         try {
-            const response = await axios.get(`${API_URL}/api/deliveryman/${CompanyId}`);
+            const response = await axios.get(`${API_URL}/api/deliveryman/`);
             setRows(response.data); // Assuming response contains the services array
         } catch (error) {
           //  console.error('Error fetching services:', error);
